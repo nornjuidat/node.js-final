@@ -15,3 +15,7 @@ app.post('/points', (req, res) => {
     points.push(point);
     res.status(200).json(point);
 });
+
+app.get('/points', (req, res) => {
+    res.status(200).json(points);
+});
