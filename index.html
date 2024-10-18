@@ -34,4 +34,14 @@
                 body: JSON.stringify({ name: pointName })
             });
             loadPoints();
+            });
+         document.getElementById('visitForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pointId = document.getElementById('pointSelect').value;
+            await fetch('/visits', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pointId: pointId })
+            });
+            loadVisits();
         });
