@@ -9,3 +9,9 @@ const port = 3000;
 
 let points = [];
 let visits = [];
+
+app.post('/points', (req, res) => {
+    let point = { name: req.body.name };
+    points.push(point);
+    res.status(200).json(point);
+});
