@@ -23,3 +23,15 @@
 
     <h2>Visits</h2>
     <ul id="visitsList"></ul>
+
+    <script>
+        document.getElementById('pointForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pointName = document.getElementById('pointName').value;
+            await fetch('/points', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: pointName })
+            });
+            loadPoints();
+        });
