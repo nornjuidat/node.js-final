@@ -25,3 +25,9 @@ app.put('/points/:id', (req, res) => {
     points[idx].name = req.body.name;
     res.status(200).json(points[idx]);
 });
+
+app.delete('/points/:id', (req, res) => {
+    let idx = req.params.id;
+    points.splice(idx, 1);
+    res.status(200).json("Point deleted");
+});
