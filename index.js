@@ -19,3 +19,9 @@ app.post('/points', (req, res) => {
 app.get('/points', (req, res) => {
     res.status(200).json(points);
 });
+
+app.put('/points/:id', (req, res) => {
+    let idx = req.params.id;
+    points[idx].name = req.body.name;
+    res.status(200).json(points[idx]);
+});
