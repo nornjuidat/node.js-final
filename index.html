@@ -6,6 +6,7 @@
     <title>control </title>
 </head>
 <body>
+    
     <h1>Manage Points</h1>
     <form id="pointForm">
         <input type="text" id="pointName" placeholder="Enter point name">
@@ -25,6 +26,7 @@
     <ul id="visitsList"></ul>
 
     <script>
+        
         document.getElementById('pointForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const pointName = document.getElementById('pointName').value;
@@ -35,6 +37,7 @@
             });
             loadPoints();
             });
+        
          document.getElementById('visitForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const pointId = document.getElementById('pointSelect').value;
@@ -45,7 +48,8 @@
             });
             loadVisits();
         });
-          async function loadPoints() {
+        
+              async function loadPoints() {
             const response = await fetch('/points');
             const points = await response.json();
             const pointsList = document.getElementById('pointsList');
@@ -57,3 +61,19 @@
                 pointSelect.innerHTML += `<option value="${idx}">${point.name}</option>`;
             });
         }
+             async function loadVisits() {
+            const response = await fetch('/visits');
+            const visits = await response.json();
+            const visitsList = document.getElementById('visitsList');
+            visitsList.innerHTML = '';
+            visits.forEach((visit) => {
+                visitsList.innerHTML += `<li>Point ID: ${visit.pointId}, Time: ${visit.timestamp}</li>`;
+            });
+        }
+
+        // Initial load
+        loadPoints();
+        loadVisits();
+    </script>
+</body>
+</html>
