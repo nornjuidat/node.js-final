@@ -31,3 +31,12 @@ app.delete('/points/:id', (req, res) => {
     points.splice(idx, 1);
     res.status(200).json("Point deleted");
 });
+
+app.post('/visits', (req, res) => {
+    let visit = {
+        pointId: req.body.pointId,
+        timestamp: new Date().toISOString()
+    };
+    visits.push(visit);
+    res.status(200).json(visit);
+});
