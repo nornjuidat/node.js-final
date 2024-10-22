@@ -40,3 +40,8 @@ app.post('/visits', (req, res) => {
     visits.push(visit);
     res.status(200).json(visit);
 });
+
+app.get('/', (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, '', 'index.html'));
+});
+
