@@ -58,7 +58,13 @@
             pointsList.innerHTML = '';
             pointSelect.innerHTML = '';
             points.forEach((point, idx) => {
-                pointsList.innerHTML += `<li>${point.name}</li>`;
+               pointsList.innerHTML += `
+                    <li>
+                        <span>${point.name}</span>
+                        <input type="text" class="edit-input" value="${point.name}">
+                        <button class="edit" onclick="toggleEdit(${idx})">Edit</button>
+                        <button onclick="deletePoint(${idx})">Delete</button>
+                    </li>`;
                 pointSelect.innerHTML += `<option value="${idx}">${point.name}</option>`;
             });
         }
