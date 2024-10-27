@@ -83,20 +83,30 @@
         loadPoints();  
     }
         
-    async function loadPoints() {
-        const response = await fetch('/points');
-        const points = await response.json();
-        const pointsList = document.getElementById('pointsList');
-        const pointSelect = document.getElementById('pointSelect');
-        pointsList.innerHTML = '';
-        pointSelect.innerHTML = '';
-        points.forEach((point, idx) => {
-            pointsList.innerHTML += `
-                <li>${point.name} 
-                    <button onclick="deletePoint(${idx})">Delete</button>
-                </li>`;
-            pointSelect.innerHTML += `<option value="${idx}">${point.name}</option>`;
-        });
+   function toggleEdit(idx) {
+            const li = document.querySelectorAll('#pointsList li')[idx];
+            const span = li.querySelector('span');
+            const input = li.querySelector('.edit-input');
+            const editButton = li.querySelector('.edit');
+
+            if (input.style.display === 'none') {
+                input.style.display = 'inline';
+                span.style.display = 'none';
+                editButton.textContent = 'Save';
+            } else {
+                const newName = input.value;
+                fetch(`/points/${idx}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: newName })
+                }).then(() => {
+                    span.textContent = newName;
+                    input.style.display = 'none';
+                    span.style.display = 'inline';
+                    editButton.textContent = 'Edit';
+                });
+            }
+        }
 
         loadPoints();
         loadVisits();
