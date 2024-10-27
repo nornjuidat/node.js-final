@@ -70,8 +70,27 @@
                 visitsList.innerHTML += `<li>Point ID: ${visit.pointId}, Time: ${visit.timestamp}</li>`;
             });
         }
+        
+         async function deletePoint(idx) {
+        await fetch(`/points/${idx}`, { method: 'DELETE' });
+        loadPoints();  
+    }
+        
+    async function loadPoints() {
+        const response = await fetch('/points');
+        const points = await response.json();
+        const pointsList = document.getElementById('pointsList');
+        const pointSelect = document.getElementById('pointSelect');
+        pointsList.innerHTML = '';
+        pointSelect.innerHTML = '';
+        points.forEach((point, idx) => {
+            pointsList.innerHTML += `
+                <li>${point.name} 
+                    <button onclick="deletePoint(${idx})">Delete</button>
+                </li>`;
+            pointSelect.innerHTML += `<option value="${idx}">${point.name}</option>`;
+        });
 
-        // Initial load
         loadPoints();
         loadVisits();
     </script>
