@@ -35,6 +35,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: pointName })
             });
+ document.getElementById('pointName').value = '';
             loadPoints();
             });
         
